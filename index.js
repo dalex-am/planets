@@ -58,9 +58,9 @@ function deletePlanet(index) {
 	for (let i = 0; i < planets.length; i++) {
 		let planet = planets[i]
 		let v = Math.sqrt(Math.pow(planet.vx, 2) + Math.pow(planet.vy, 2))
-		outputCoordinates.innerHTML += `<span onclick="deletePlanet(${i})">del</span> 
-			${i}. x = ${Math.round(planet.x) - CENTER[0]},
-			y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}<br>`
+		outputCoordinates.innerHTML += `${i}. x = ${Math.round(planet.x) - CENTER[0]},
+			y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}. 
+			<span onclick="deletePlanet(${i})">delete</span> <br>`
 	}
 	drawFrame()
 }
@@ -77,8 +77,9 @@ function drawFrame() {
 		context.fill();
 		// Вывести координаты на экран
 		let v = Math.sqrt(Math.pow(planet.vx, 2) + Math.pow(planet.vy, 2))
-		outputCoordinates.innerHTML += `<span onclick="deletePlanet(${i})">del</span> ${i}. x = ${Math.round(planet.x) - CENTER[0]},
-			 y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}<br>`	
+		outputCoordinates.innerHTML += `${i}. x = ${Math.round(planet.x) - CENTER[0]},
+			y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}.
+			<span onclick="deletePlanet(${i})">delete</span> <br>`	
 	}
 	if(!paused) {
 		requestAnimationFrame(drawFrame);

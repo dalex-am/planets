@@ -8,20 +8,24 @@
 </head>
 <body>
 	<canvas class="space" id="space">Отрисовка здесь</canvas>
-	<div class="control help">
-		Во время паузы можно удалять планеты ("del" в окне координат)
+	<div class="control help-text">
+		Во время паузы можно удалять планеты ("delete" в окне координат)
+	</div>
+	<div class="control help-img">
+		<img class="angle-img" src="./img/angle-help.png" alt="coordinates">
 	</div>
 	<div class="control add-planet">
 		Добавить планету / pause 
-		<button onclick="togglePaused()">pause / play</button>
-		<input type="number" name="x" min="-1000" max="1000" step="10" placeholder="x" value="250">
-		<input type="number" name="y" min="-1000" max="1000" step="10" placeholder="y" value="0">
-		<input type="number" name="v" min="0" max="1000" step="10" placeholder="v" value="50">
-		<input type="number" name="angle" min="-360" max="360" step="10" placeholder="angle" value="270">
-		<input type="number" name="radius" min="1" max="10" placeholder="radius" value="5">
-		<input type="number" name="mass" min="1" max="100" step="10" placeholder="mass" value="2">
-		<input type="color" name="color" value="#ffffff">
-		<button onclick="addPlanet()">add</button>
+		<button class="btn pause-btn" onclick="togglePaused()">pause / play</button>
+		<br>
+		X:<input type="number" name="x" min="-1000" max="1000" step="10" placeholder="x" value="250">
+		Y: <input type="number" name="y" min="-1000" max="1000" step="10" placeholder="y" value="0">
+		v: <input type="number" name="v" min="0" max="1000" step="10" placeholder="v" value="50"> <br>
+		angle: <input type="number" name="angle" min="-360" max="360" step="10" placeholder="angle" value="270">
+		radius: <input type="number" name="radius" min="1" max="10" placeholder="radius" value="5"> <br>
+		mass: <input type="number" name="mass" min="1" max="100" step="10" placeholder="mass" value="2">
+		color: <input type="color" name="color" value="#ffffff">
+		<button class="btn add-planet-btn" onclick="addPlanet()">add new planet</button>
 	</div>
 	<div class="control coordinates">
 		Координаты объектов
