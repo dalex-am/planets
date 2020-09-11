@@ -50,6 +50,9 @@ function addPlanet() {
 		document.getElementsByName("color")[0].value,
 		)
 	planets.push(planet)
+	if (paused) {
+		drawFrame()
+	}
 }
 
 function deletePlanet(index) {
@@ -124,7 +127,51 @@ function clearPlanets() {
 	planets = [];
 }
 
+// Вкл-выкл паузы
 function togglePaused() {
 	paused = !paused
 	if (!paused) drawFrame()
+}
+
+// Управление ползунками
+var sliderX = document.getElementsByName("x")[0]
+var outputX = document.getElementById("x");
+outputX.innerHTML = sliderX.value; 
+sliderX.oninput = function() {
+    outputX.innerHTML = this.value;
+}
+
+var sliderY = document.getElementsByName("y")[0]
+var outputY = document.getElementById("y");
+outputY.innerHTML = sliderY.value; 
+sliderY.oninput = function() {
+    outputY.innerHTML = this.value;
+}
+
+var sliderV = document.getElementsByName("v")[0]
+var outputV = document.getElementById("v");
+outputV.innerHTML = sliderV.value; 
+sliderV.oninput = function() {
+    outputV.innerHTML = this.value;
+}
+
+var sliderAngle = document.getElementsByName("angle")[0]
+var outputAngle = document.getElementById("angle");
+outputAngle.innerHTML = sliderAngle.value; 
+sliderAngle.oninput = function() {
+    outputAngle.innerHTML = this.value;
+}
+
+var sliderRadius = document.getElementsByName("radius")[0]
+var outputRadius = document.getElementById("radius");
+outputRadius.innerHTML = sliderRadius.value; 
+sliderRadius.oninput = function() {
+    outputRadius.innerHTML = this.value;
+}
+
+var sliderMass = document.getElementsByName("mass")[0]
+var outputMass = document.getElementById("mass");
+outputMass.innerHTML = sliderMass.value; 
+sliderMass.oninput = function() {
+    outputMass.innerHTML = this.value;
 }
