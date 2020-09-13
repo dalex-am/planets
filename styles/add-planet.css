@@ -1,15 +1,42 @@
-.add-planet {
-	position: fixed;
-	bottom: 0;
-	width: 25%;
-	height: auto;
-	overflow-x: auto;
+@media screen and (max-width: 500px) {
+	/* Мобильные устройства в портретной ориентации */
+	.add-planet {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		height: auto;
+		overflow-x: auto;
+	}
+
+	.toggle-btn {
+		border: none;
+		font-size: 20px;
+		width: 25px;
+		margin-top: 5px;
+	}
+}
+
+@media screen and (min-width: 500px) {
+	.add-planet {
+		position: fixed;
+		bottom: 0;
+		/* width: 25%; */
+		height: auto;
+		overflow-x: auto;
+	}
+
+	.toggle-btn {
+		border: none;
+		font-size: 12px;
+		width: 20px;
+		margin-top: 5px;
+	}
 }
 
 /* inputs */
 input[type='range'] {
     overflow: hidden;
-    width: 27%;
+    width: 80px;
     -webkit-appearance: none;
     background-color: white;
 }
@@ -50,21 +77,16 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .add-planet span {
+	width: 40px;
 	margin-right: 10px;
 }
 
 /* buttons */
-.toggle-btn {
-	border: none;
-	font-size: 12px;
-	width: 20px;
-	margin-top: 5px;
-}
 
 .pause-btn {
 	border: none;
 	font-size: 12px;
-	width: 100px;
+	width: 50px;
 	float: right;
 }
 

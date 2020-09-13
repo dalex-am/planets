@@ -1,25 +1,27 @@
-.help-text {
-	position: fixed;
-	top: 0;
-	width: 25%;
-	font-size: 12px;
-	overflow-x: auto;
-}
+@media screen and (min-width: 1000px) {
+	.help-text {
+		position: fixed;
+		top: 0;
+		width: 25%;
+		font-size: 12px;
+		overflow-x: auto;
+	}
 
-.help-img {
-	position: fixed;
-	top: 0;
-	right: 0;
-	height: 20%;
-	padding: 0;
-	text-align: center;
-	font-size: 9px;
-}
+	.help-img {
+		position: fixed;
+		top: 0;
+		right: 0;
+		height: 20%;
+		padding: 0;
+		text-align: center;
+		font-size: 9px;
+	}
 
-.help-img:hover {
-	background-color: rgba(255, 255, 255, 0.7);
-}
+	.help-img:hover {
+		background-color: rgba(255, 255, 255, 0.7);
+	}
 
-.angle-img {
-	height: 100%;
+	.angle-img {
+		height: 100%;
+	}
 }
