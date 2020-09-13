@@ -31,9 +31,10 @@
 		<span id="angle">270</span> <br>
 		radius: <input type="range" name="radius" min="1" max="10" value="5" title="Радиус планеты">
 		<span id="radius">5</span>
-		mass: <input type="range" name="mass" min="1" max="101" step="1" value="2"  title="Масса планеты">
+		mass: <input type="range" name="mass" min="1" max="101" step="1" value="2" title="Масса планеты">
 		<span id="mass">2</span> <br>
 		color: <input id="input-color" type="color" name="color" value="#ffffff">
+		pin 1st planet: <input type="checkbox" name="pin" onclick="togglePin()" title="Закрепить первую в списке планету">
 		<button class="btn add-planet-btn" onclick="addPlanet()"><b>add</b></button>
 		<button class="btn add-planet-btn" onclick="clearPlanets()">clear</button> <br>
 		Zoom: 

@@ -1,11 +1,12 @@
 let WIDTH = document.body.clientWidth //Ширина браузера
 let HEIGHT = document.body.clientHeight //Высота браузера
-let CENTER = [WIDTH / 2, HEIGHT / 2] // 0.9 - размер области с планетами
+let CENTER = [WIDTH / 2, HEIGHT / 2] 
 console.log(WIDTH, HEIGHT)
 let T_coeff = 0.02 //Регулировка скорости
 const G_coeff = 10000
 let outputCoordinates = document.getElementsByClassName("coordinates")[0] // Вывод координат в div
 let paused = false
+let pinned = false
 
 // Настраиваем canvas
 window.onload = function() {
@@ -81,13 +82,11 @@ function drawFrame() {
 		let planet = planets[i]
 		context.arc(planet.x, planet.y, planet.radius, 0, 7);
 		context.fillStyle = planet.color
-		// context.shadowColor = '#ffffff'
-        // context.shadowBlur = 30 //Свечение
 		context.fill();
 		// Вывести координаты на экран
 		let v = Math.sqrt(Math.pow(planet.vx, 2) + Math.pow(planet.vy, 2))
-		outputCoordinates.innerHTML += `${i}. x = ${Math.round(planet.x) - CENTER[0]},
-			y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}.
+		outputCoordinates.innerHTML += `${i}. x = ${Math.round(planet.x - CENTER[0])},
+			y = ${Math.round(CENTER[1] - planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}.
 			<span onclick="deletePlanet(${i})">delete</span> <br>`	
 	}
 	// Рисуем будущую планету
@@ -104,8 +103,14 @@ function drawFrame() {
 	if(!paused) {
 		requestAnimationFrame(drawFrame);
 	}
-	for (let i = 0; i < planets.length; i++) {
-		getNewCoords(planets[i])	
+	if (pinned) {
+		for (let i = 1; i < planets.length; i++) {
+			getNewCoords(planets[i])	
+		}
+	} else {
+		for (let i = 0; i < planets.length; i++) {
+			getNewCoords(planets[i])	
+		}
 	}
 }
 
@@ -183,6 +188,12 @@ function moveRight() {
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].x -= 10
 	}
+}
+
+// Pin first planet
+function togglePin() {
+	pin = document.getElementsByName("pin")[0].checked
+	pinned = pin
 }
 
 // Zoom
