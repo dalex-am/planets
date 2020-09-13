@@ -10,34 +10,38 @@
 	<canvas class="space" id="space">Отрисовка здесь</canvas>
 	<div class="control help-text">
 		Во время паузы можно удалять планеты ("delete" в окне координат). 
-		Добавление работает в любое время, в том числе с помощью клавиатуры<br>
-		Движения с помощью стрелок
+		Добавление работает в любое время, в том числе с помощью клавиатуры.<br>
+		Движения с помощью стрелок. Артефакты при уменьшении масштаба - не баг, а фича:)
 	</div>
 	<div class="control help-img">
 		<img class="angle-img" src="./img/angle-help.png" alt="coordinates"> <br>
 		Угол запуска
 	</div>
 	<div class="control add-planet">
-		Добавить планету / pause 
+		Добавить планету / pause
 		<button class="btn pause-btn" onclick="togglePaused()">pause / play</button>
-		<br>
-		X: <input type="range" name="x" min="-1000" max="1000" step="20" placeholder="x" value="250" title="Координата X">
+		<br><br>
+		X: <input type="range" name="x" min="-1000" max="1000" step="20" value="250" title="Координата X">
 		<span id="x">250</span>
-		Y: <input type="range" name="y" min="-1000" max="1000" step="10" placeholder="y" value="0" title="Координата Y">
+		Y: <input type="range" name="y" min="-1000" max="1000" step="10"  value="0" title="Координата Y">
 		<span id="y">0</span> <br>
-		v: <input type="range" name="v" min="0" max="100" step="5" placeholder="v" value="65"  title="Начальная скорость">
+		v: <input type="range" name="v" min="0" max="100" step="5"  value="65"  title="Начальная скорость планеты">
 		<span id="v">50</span>
-		angle: <input type="range" name="angle" min="0" max="360" step="5" placeholder="angle" value="270" title="Угол запуска">
+		angle: <input type="range" name="angle" min="0" max="360" step="5" value="270" title="Угол запуска">
 		<span id="angle">270</span> <br>
-		radius: <input type="range" name="radius" min="1" max="10" placeholder="radius" value="5" title="Радиус объекта">
+		radius: <input type="range" name="radius" min="1" max="10" value="5" title="Радиус планеты">
 		<span id="radius">5</span>
-		mass: <input type="range" name="mass" min="1" max="101" step="1" placeholder="mass" value="2"  title="Масса объекта">
+		mass: <input type="range" name="mass" min="1" max="101" step="1" value="2"  title="Масса планеты">
 		<span id="mass">2</span> <br>
-		color: <input type="color" name="color" value="#ffffff">
-		<button class="btn add-planet-btn" onclick="addPlanet()">add</button>
+		color: <input id="input-color" type="color" name="color" value="#ffffff">
+		<button class="btn add-planet-btn" onclick="addPlanet()"><b>add</b></button>
 		<button class="btn add-planet-btn" onclick="clearPlanets()">clear</button> <br>
-		Zoom: <button onclick="zoomMinus()">-</button><button onclick="zoomPlus()">+</button> 
-		Speed: <button onclick="speedMinus()">-</button><button onclick="speedPlus()">+</button>
+		Zoom: 
+		<button class="btn toggle-btn" onclick="zoomMinus()">-</button>
+		<button class="btn toggle-btn" onclick="zoomPlus()">+</button> 
+		Speed: 
+		<button class="btn toggle-btn" onclick="speedMinus()">-</button>
+		<button class="btn toggle-btn" onclick="speedPlus()">+</button>
 	</div>
 	<div class="control coordinates">
 		Координаты объектов
