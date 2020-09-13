@@ -2,7 +2,7 @@ let WIDTH = document.body.clientWidth //Ширина браузера
 let HEIGHT = document.body.clientHeight //Высота браузера
 let CENTER = [WIDTH / 2, HEIGHT / 2] // 0.9 - размер области с планетами
 console.log(WIDTH, HEIGHT)
-const T_coeff = 0.05 //Регулировка скорости
+let T_coeff = 0.02 //Регулировка скорости
 const G_coeff = 10000
 let outputCoordinates = document.getElementsByClassName("coordinates")[0] // Вывод координат в div
 let paused = false
@@ -43,7 +43,7 @@ planets.push(earth)
 let futurePlanet = new Planet(260 + CENTER[0], CENTER[1], 65, 90, 5, 2, "rgba(225,225,225,0.5)")
 
 
-function addPlanet(array = planets) {
+function addPlanet() {
 	var planet = new Planet(
 		CENTER[0] + Number(document.getElementsByName("x")[0].value),
 		CENTER[1] - Number(document.getElementsByName("y")[0].value),
@@ -53,7 +53,7 @@ function addPlanet(array = planets) {
 		Number(document.getElementsByName("mass")[0].value),
 		document.getElementsByName("color")[0].value,
 		)
-	array.push(planet)
+	planets.push(planet)
 	if (paused) {
 		drawFrame()
 	}
@@ -81,8 +81,8 @@ function drawFrame() {
 		let planet = planets[i]
 		context.arc(planet.x, planet.y, planet.radius, 0, 7);
 		context.fillStyle = planet.color
-		context.shadowColor = '#ffffff'
-        context.shadowBlur = 30 //Свечение
+		// context.shadowColor = '#ffffff'
+        // context.shadowBlur = 30 //Свечение
 		context.fill();
 		// Вывести координаты на экран
 		let v = Math.sqrt(Math.pow(planet.vx, 2) + Math.pow(planet.vy, 2))
@@ -93,14 +93,11 @@ function drawFrame() {
 	// Рисуем будущую планету
 	context.arc(futurePlanet.x, futurePlanet.y, futurePlanet.radius, 0, 7); 
 	context.fillStyle = 'rgba(225,225,225,0.5)'
-	context.shadowColor = '#ffffff'
-	context.shadowBlur = 30 //Свечение
 	context.fill();
 	context.beginPath();
 	drawArrow(futurePlanet.x, futurePlanet.y, 
 		futurePlanet.x + 40 * Math.cos(Math.PI/180*futurePlanet.angle),
-		futurePlanet.y - 40 * Math.sin(Math.PI/180*futurePlanet.angle));
-		debugger
+		futurePlanet.y - 40 * Math.sin(Math.PI/180*futurePlanet.angle))
 	context.strokeStyle = 'rgba(225,225,225,0.5)'
 	context.stroke();
 
@@ -186,6 +183,26 @@ function moveRight() {
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].x -= 10
 	}
+}
+
+// Zoom
+function zoomMinus() {
+	context.scale(0.9, 0.9)
+	context.translate(WIDTH / 0.9 * 0.05, HEIGHT / 0.9 * 0.05)
+}
+
+function zoomPlus() {
+	context.scale(1.1, 1.1)
+	context.translate(- WIDTH / 1.1 * 0.05, -HEIGHT / 1.1 * 0.05)
+}
+
+// Speed
+function speedMinus() {
+	T_coeff *= 0.9
+}
+
+function speedPlus() {
+	T_coeff /= 0.8
 }
 
 // Управление клавишами
