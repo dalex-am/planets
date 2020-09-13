@@ -19,7 +19,6 @@ window.onload = function() {
 
 // Массив с планетами
 var planets = [];
-var futurePlanet = []
 
 // Тип данных для планеты
 function Planet(x, y, v, angle, radius, mass, color) {
@@ -40,6 +39,9 @@ var mercury = new Planet(CENTER[0] + 100, CENTER[1], 90, 90, 2, 1, "red")
 planets.push(mercury)
 var earth = new Planet(CENTER[0] -200, CENTER[1], 75, 270, 4, 2, "blue")
 planets.push(earth)
+// Заготовка для планеты
+let futurePlanet = new Planet(260 + CENTER[0], CENTER[1], 65, 90, 5, 2, "rgba(225,225,225,0.5)")
+
 
 function addPlanet(array = planets) {
 	var planet = new Planet(
@@ -55,7 +57,6 @@ function addPlanet(array = planets) {
 	if (paused) {
 		drawFrame()
 	}
-	if (array != futurePlanet) { futurePlanet = [] }
 }
 
 function deletePlanet(index) {
@@ -89,21 +90,20 @@ function drawFrame() {
 			y = ${CENTER[1] - Math.round(planet.y)}, V = ${Math.round(v)}, mass = ${planet.mass}.
 			<span onclick="deletePlanet(${i})">delete</span> <br>`	
 	}
-	if ( futurePlanet.length > 0 ) {
-		let planet = futurePlanet[0]
-		context.arc(planet.x, planet.y, planet.radius, 0, 7); // Рисуем будущую планету
-		context.fillStyle = 'rgba(225,225,225,0.5)'
-		context.shadowColor = '#ffffff'
-		context.shadowBlur = 30 //Свечение
-		context.fill();
-		context.beginPath();
-		drawArrow(planet.x, planet.y, 
-			planet.x + 40 * Math.cos(Math.PI/180*planet.angle),
-			planet.y - 40 * Math.sin(Math.PI/180*planet.angle));
-			debugger
-		context.strokeStyle = 'rgba(225,225,225,0.5)'
-		context.stroke();
-	}
+	// Рисуем будущую планету
+	context.arc(futurePlanet.x, futurePlanet.y, futurePlanet.radius, 0, 7); 
+	context.fillStyle = 'rgba(225,225,225,0.5)'
+	context.shadowColor = '#ffffff'
+	context.shadowBlur = 30 //Свечение
+	context.fill();
+	context.beginPath();
+	drawArrow(futurePlanet.x, futurePlanet.y, 
+		futurePlanet.x + 40 * Math.cos(Math.PI/180*futurePlanet.angle),
+		futurePlanet.y - 40 * Math.sin(Math.PI/180*futurePlanet.angle));
+		debugger
+	context.strokeStyle = 'rgba(225,225,225,0.5)'
+	context.stroke();
+
 	if(!paused) {
 		requestAnimationFrame(drawFrame);
 	}
@@ -201,22 +201,13 @@ addEventListener("keydown", function(event) {
 addEventListener("click", function (event) {
 	if (event.clientX < WIDTH * 0.28 && event.clientY > HEIGHT * 0.72) {
 		return false
-	} else if (futurePlanet.length == 0) {
+	} else {
 		sliderX.value = event.pageX - CENTER[0]
 		outputX.innerHTML = sliderX.value; 
 		sliderY.value = CENTER[1] - event.pageY
 		outputY.innerHTML = sliderY.value;
-		addPlanet(futurePlanet)
-	} else if (futurePlanet.length == 1) {
-		let tox = event.pageX
-		let toy = event.pageY
-		let dx = tox - futurePlanet[0].x;
-		let dy = futurePlanet[0].y - toy;
-		let angle = Math.atan2(dy, dx);
-		if (angle < 0) {angle += 2 * Math.PI}
-		sliderAngle.value = (180*angle/Math.PI); 
-		outputAngle.innerHTML = sliderAngle.value;
-		futurePlanet[0].angle = (180*angle/Math.PI)
+		futurePlanet.x = event.pageX
+		futurePlanet.y = event.pageY
 	}
 })
 
@@ -225,21 +216,24 @@ var sliderX = document.getElementsByName("x")[0]
 var outputX = document.getElementById("x");
 outputX.innerHTML = sliderX.value; 
 sliderX.oninput = function() {
-    outputX.innerHTML = this.value;
+	outputX.innerHTML = this.value;
+	futurePlanet.x = Number(this.value) + CENTER[0]
 }
 
 var sliderY = document.getElementsByName("y")[0]
 var outputY = document.getElementById("y");
 outputY.innerHTML = sliderY.value; 
 sliderY.oninput = function() {
-    outputY.innerHTML = this.value;
+	outputY.innerHTML = this.value;
+	futurePlanet.y = CENTER[1] - Number(this.value) 
 }
 
 var sliderV = document.getElementsByName("v")[0]
 var outputV = document.getElementById("v");
 outputV.innerHTML = sliderV.value; 
 sliderV.oninput = function() {
-    outputV.innerHTML = this.value;
+	outputV.innerHTML = this.value;
+	futurePlanet.v = Number(this.value)
 }
 
 var sliderAngle = document.getElementsByName("angle")[0]
@@ -247,6 +241,7 @@ var outputAngle = document.getElementById("angle");
 outputAngle.innerHTML = sliderAngle.value; 
 sliderAngle.oninput = function() {
     outputAngle.innerHTML = this.value;
+	futurePlanet.angle = Number(this.value)
 }
 
 var sliderRadius = document.getElementsByName("radius")[0]
@@ -254,6 +249,7 @@ var outputRadius = document.getElementById("radius");
 outputRadius.innerHTML = sliderRadius.value; 
 sliderRadius.oninput = function() {
     outputRadius.innerHTML = this.value;
+	futurePlanet.radius = Number(this.value)
 }
 
 var sliderMass = document.getElementsByName("mass")[0]
@@ -261,5 +257,6 @@ var outputMass = document.getElementById("mass");
 outputMass.innerHTML = sliderMass.value; 
 sliderMass.oninput = function() {
     outputMass.innerHTML = this.value;
+	futurePlanet.mass = Number(this.value)
 }
 
