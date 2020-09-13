@@ -1,0 +1,80 @@
+.add-planet {
+	position: fixed;
+	bottom: 0;
+	width: 25%;
+	height: auto;
+	overflow-x: auto;
+}
+
+/* inputs */
+input[type='range'] {
+    overflow: hidden;
+    width: 27%;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    height: 13px;
+    -webkit-appearance: none;
+    color: gray;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    width: 5px;
+    -webkit-appearance: none;
+    height: 13px;
+    cursor: ew-resize;
+    background: #434343;
+    box-shadow: -80px 0 0 80px gray;
+}
+
+input[type="range"]::-moz-range-progress {
+    background-color: gray;
+}
+
+input[type="range"]::-moz-range-track {
+    background-color: #434343;
+}
+
+input[type="range"]::-ms-fill-lower {
+    background-color: gray;
+}
+
+input[type="range"]::-ms-fill-upper {
+    background-color: white;
+}
+
+#input-color {
+	width: 20px;
+}
+
+.add-planet span {
+	margin-right: 10px;
+}
+
+/* buttons */
+.toggle-btn {
+	border: none;
+	font-size: 12px;
+	width: 20px;
+	margin-top: 5px;
+}
+
+.pause-btn {
+	border: none;
+	font-size: 12px;
+	width: 100px;
+	float: right;
+}
+
+.add-planet-btn {
+	background-color: black;
+	color: white;
+	border: 1px solid white;
+	width: 40px;
+	font-size: 14px;
+	float: right;
+	margin-left: 5px;
+	margin-top: 5px;
+}

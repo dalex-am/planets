@@ -1,0 +1,29 @@
+@import url('styles/add-planet.css');
+@import url('styles/help-text.css');
+@import url('styles/coord-list.css');
+
+html, body {
+	height: 100%;
+	width: 100%;
+	font-family: Helvetica;
+	overflow-y: hidden;
+	margin: 0;
+}
+
+.space {
+	background-color: black;
+	color: white;
+}
+
+.control {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: white;
+	padding: 5px;
+	margin: 4px;
+	font-size: 12px;
+}
+
+.btn {
+	border-radius: 0;
+	padding: 2px;
+}
