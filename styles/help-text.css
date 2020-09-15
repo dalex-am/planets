@@ -1,12 +1,4 @@
 @media screen and (min-width: 1000px) {
-	.help-text {
-		position: fixed;
-		top: 0;
-		width: 25%;
-		font-size: 12px;
-		overflow-x: auto;
-	}
-
 	.help-img {
 		position: fixed;
 		top: 0;
