@@ -3,7 +3,7 @@
 	.add-planet {
 		position: fixed;
 		bottom: 0;
-		width: 100%;
+		width: 96%;
 		height: auto;
 		overflow-x: auto;
 	}

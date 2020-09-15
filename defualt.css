@@ -1,6 +1,7 @@
 @import url('styles/add-planet.css');
 @import url('styles/help-text.css');
 @import url('styles/coord-list.css');
+@import url('styles/CSSalerts.css');
 
 html, body {
 	height: 100%;

@@ -1,7 +1,6 @@
 let WIDTH = document.body.clientWidth //Ширина браузера
 let HEIGHT = document.body.clientHeight //Высота браузера
 let CENTER = [WIDTH / 2, HEIGHT / 2] 
-console.log(WIDTH, HEIGHT)
 let T_coeff = 0.02 //Регулировка скорости
 const G_coeff = 10000
 let outputCoordinates = document.getElementsByClassName("coordinates")[0] // Вывод координат в div
@@ -38,7 +37,7 @@ var sun = new Planet(CENTER[0], CENTER[1], 0, 0, 8, 100, "yellow")
 planets.push(sun)
 var mercury = new Planet(CENTER[0] + 100, CENTER[1], 90, 90, 2, 1, "red")
 planets.push(mercury)
-var earth = new Planet(CENTER[0] -200, CENTER[1], 75, 270, 4, 2, "blue")
+var earth = new Planet(CENTER[0], CENTER[1] -200, 75, 180, 4, 2, "blue")
 planets.push(earth)
 // Заготовка для планеты
 let futurePlanet = new Planet(260 + CENTER[0], CENTER[1], 65, 90, 5, 2, "rgba(225,225,225,0.5)")

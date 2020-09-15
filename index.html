@@ -8,11 +8,11 @@
 </head>
 <body>
 	<canvas class="space" id="space">Отрисовка здесь</canvas>
-	<div class="control help-text">
+	<!-- <div class="control help-text">
 		Во время паузы можно удалять планеты ("delete" в окне координат). 
 		Добавление работает в любое время, в том числе с помощью клавиатуры.<br>
 		Движения с помощью стрелок. Артефакты при уменьшении масштаба - не баг, а фича:)
-	</div>
+	</div> -->
 	<div class="control help-img">
 		<img class="angle-img" src="./img/angle-help.png" alt="coordinates"> <br>
 		Угол запуска
@@ -47,9 +47,35 @@
 	<div class="control coordinates">
 		Координаты объектов
 	</div>
-	
+	<div class="alerts">
+		<div class="alert-text">Клик по экрану - отметка точки старта будущей планеты. Но можно использовать ползунки.</div>
+		<button class="btn close" onclick="closeAlert(0)" title="Закрыть"> &times; </button>
+		<button class="btn next" onclick="nextAlert(0)" title="Ещё"> &raquo; </button>
+	</div>
+	<div class="alerts" style="left: -300px">
+		<div class="alert-text">В поле "добавить планету" можно выбрать скорость (v), угол (angle) и другие параметры.</div>
+		<button class="btn close" onclick="closeAlert(1)" title="Закрыть"> &times; </button>
+		<button class="btn next" onclick="nextAlert(1)" title="Ещё"> &raquo; </button>
+	</div>
+	<div class="alerts" style="left: -300px">
+		<div class="alert-text">
+			Там же можно регулировать масштаб и скорость течения времени. Артефакты при маленьком масштабе - не баг, а фича:)
+		</div>
+		<button class="btn close" onclick="closeAlert(2)" title="Закрыть"> &times; </button>
+		<button class="btn next" onclick="nextAlert(2)" title="Ещё"> &raquo; </button>
+	</div>
+	<div class="alerts" style="left: -300px">
+		<div class="alert-text">Если доступен список планет, то во время паузы там активна кнопка delete.</div>
+		<button class="btn close" onclick="closeAlert(3)" title="Закрыть"> &times; </button>
+		<button class="btn next" onclick="nextAlert(3)" title="Ещё"> &raquo; </button>
+	</div>
+	<div class="alerts" style="left: -300px">
+		<div class="alert-text">Первую по списку планету можно зафиксировать (pin 1st planet).</div>
+		<button class="btn close" onclick="closeAlert(4)" title="Закрыть"> &times; </button>
+	</div>
 </body>
 </html>
 
 
 <script src="index.js"></script>
+<script src="CSSalerts.js"></script>
