@@ -16,20 +16,17 @@
 		Добавить планету
 		<button class="btn pause-btn" onclick="togglePaused()">|| / &#9658;</button>
 		<br><br>
-		X: <input type="range" name="x" min="-1000" max="1000" step="20" value="250" title="Координата X">
-		<span id="x">250</span>
-		Y: <input type="range" name="y" min="-1000" max="1000" step="10"  value="0" title="Координата Y">
-		<span id="y">0</span> <br>
 		v: <input type="range" name="v" min="0" max="100" step="5"  value="65"  title="Начальная скорость планеты">
 		<span id="v">50</span>
 		angle: <input type="range" name="angle" min="0" max="360" step="5" value="270" title="Угол запуска">
 		<span id="angle">270</span> <br>
-		radius: <input type="range" name="radius" min="1" max="10" value="5" title="Радиус планеты">
-		<span id="radius">5</span>
+		radius: <input type="range" name="radius" min="1" max="10" value="2" title="Радиус планеты">
+		<span id="radius">2</span>
 		mass: <input type="range" name="mass" min="1" max="101" step="1" value="2" title="Масса планеты">
 		<span id="mass">2</span> <br>
 		color: <input id="input-color" type="color" name="color" value="#ffffff">
-		pin 1st planet: <input type="checkbox" name="pin" onclick="togglePin()" title="Закрепить первую в списке планету">
+		<u>pin 1st:</u> <input type="checkbox" name="pin" onclick="togglePin()" title="Закрепить первую в списке планету">
+		<u>tales:</u> <input type="checkbox" name="tails" onclick="toggleTails()" title="Отрисовывать хвост">
 		<button class="btn add-planet-btn" onclick="addPlanet()"><b>add</b></button>
 		<button class="btn add-planet-btn" onclick="clearPlanets()">clear</button> <br>
 		Zoom: 
@@ -43,7 +40,7 @@
 		Координаты объектов
 	</div>
 	<div class="alerts">
-		<div class="alert-text">Клик по экрану - отметка точки старта будущей планеты. Но можно использовать ползунки.</div>
+		<div class="alert-text">Клик по экрану - отметка точки старта будущей планеты.</div>
 		<button class="btn close" onclick="closeAlert(0)" title="Закрыть"> &times; </button>
 		<button class="btn next" onclick="nextAlert(0)" title="Ещё"> &raquo; </button>
 	</div>
@@ -54,7 +51,7 @@
 	</div>
 	<div class="alerts" style="left: -300px">
 		<div class="alert-text">
-			Там же можно регулировать масштаб и скорость течения времени. Артефакты при маленьком масштабе - не баг, а фича:)
+			Там же можно регулировать масштаб и скорость течения времени. И выбрать, стоит ли отрисовывать планетам "хвосты".
 		</div>
 		<button class="btn close" onclick="closeAlert(2)" title="Закрыть"> &times; </button>
 		<button class="btn next" onclick="nextAlert(2)" title="Ещё"> &raquo; </button>
@@ -65,7 +62,7 @@
 		<button class="btn next" onclick="nextAlert(3)" title="Ещё"> &raquo; </button>
 	</div>
 	<div class="alerts" style="left: -300px">
-		<div class="alert-text">Первую по списку планету можно зафиксировать (pin 1st planet).</div>
+		<div class="alert-text">Первую по списку планету можно зафиксировать (pin 1st).</div>
 		<button class="btn close" onclick="closeAlert(4)" title="Закрыть"> &times; </button>
 	</div>
 </body>

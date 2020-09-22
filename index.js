@@ -1,11 +1,14 @@
-let WIDTH = document.body.clientWidth //Ширина браузера
-let HEIGHT = document.body.clientHeight //Высота браузера
+let WIDTH = document.body.clientWidth // Ширина браузера
+let HEIGHT = document.body.clientHeight // Высота браузера
 let CENTER = [WIDTH / 2, HEIGHT / 2] 
 let T_coeff = 0.02 //Регулировка скорости
 const G_coeff = 10000
 let outputCoordinates = document.getElementsByClassName("coordinates")[0] // Вывод координат в div
 let paused = false
 let pinned = false
+let drawTails = false
+let oldX = 0 // Для закрашивания будущей планеты
+let oldY = 0
 
 // Настраиваем canvas
 window.onload = function() {
@@ -33,20 +36,19 @@ function Planet(x, y, v, angle, radius, mass, color) {
 }
 
 // Объявляем первые планеты (x, y, v, angle, radius, mass, color)
-var sun = new Planet(CENTER[0], CENTER[1], 0, 0, 8, 100, "yellow")
+var sun = new Planet(CENTER[0], CENTER[1], 0, 0, 5, 100, "yellow")
 planets.push(sun)
 var mercury = new Planet(CENTER[0] + 100, CENTER[1], 90, 90, 2, 1, "red")
 planets.push(mercury)
 var earth = new Planet(CENTER[0], CENTER[1] -200, 75, 180, 4, 2, "blue")
 planets.push(earth)
 // Заготовка для планеты
-let futurePlanet = new Planet(260 + CENTER[0], CENTER[1], 65, 90, 5, 2, "rgba(225,225,225,0.5)")
+let futurePlanet = new Planet(260 + CENTER[0], CENTER[1], 65, 90, 2, 2, "rgba(225,225,225,0.5)")
 
 
 function addPlanet() {
 	var planet = new Planet(
-		CENTER[0] + Number(document.getElementsByName("x")[0].value),
-		CENTER[1] - Number(document.getElementsByName("y")[0].value),
+		futurePlanet.x, futurePlanet.y,
 		Number(document.getElementsByName("v")[0].value),
 		180 + Number(document.getElementsByName("angle")[0].value),
 		Number(document.getElementsByName("radius")[0].value),
@@ -74,7 +76,10 @@ function deletePlanet(index) {
 
 // Проходим циклом, делаем расчёты, рисуем, выводим список
 function drawFrame() {
-	context.clearRect(0, 0, space.width, space.height)
+	// Смотрим, нужен ли след
+	{drawTails
+		? context.save() 
+		: context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)}
 	outputCoordinates.innerHTML = ""
 	for (let i = 0; i < planets.length; i++) {
 		context.beginPath()
@@ -89,15 +94,14 @@ function drawFrame() {
 			<span onclick="deletePlanet(${i})">delete</span> <br>`	
 	}
 	// Рисуем будущую планету
-	context.arc(futurePlanet.x, futurePlanet.y, futurePlanet.radius, 0, 7); 
-	context.fillStyle = 'rgba(225,225,225,0.5)'
-	context.fill();
-	context.beginPath();
-	drawArrow(futurePlanet.x, futurePlanet.y, 
-		futurePlanet.x + 40 * Math.cos(Math.PI/180*futurePlanet.angle),
-		futurePlanet.y - 40 * Math.sin(Math.PI/180*futurePlanet.angle))
-	context.strokeStyle = 'rgba(225,225,225,0.5)'
-	context.stroke();
+	drawFuturePlanet(oldX, oldY, 'rgba(0,0,0,1)')
+	drawFuturePlanet(oldX, oldY, 'rgba(0,0,0,1)')
+	if (futurePlanet.x !== oldX || futurePlanet.y !== oldY) {
+		oldX = futurePlanet.x
+		oldY = futurePlanet.y
+	}
+	drawFuturePlanet()
+	{drawTails && context.restore() }  // Если рисуем след
 
 	if(!paused) {
 		requestAnimationFrame(drawFrame);
@@ -133,6 +137,20 @@ function getAccelerate(planet) {
 	return [acc_x, acc_y]
 }
 
+function drawFuturePlanet(x = futurePlanet.x, y=futurePlanet.y, color=futurePlanet.color) {
+	context.beginPath();
+	context.arc(x, y, futurePlanet.radius, 0, 7); 
+	context.fillStyle = color
+	context.fill();
+	context.beginPath();
+	drawArrow(x, y, 
+		x + 40 * Math.cos(Math.PI/180*futurePlanet.angle),
+		y - 40 * Math.sin(Math.PI/180*futurePlanet.angle))
+	context.strokeStyle = color
+	context.stroke();
+	context.closePath()
+}
+
 // Расчёт изменения координат планеты (после подсчёта всех ускорений)
 function getNewCoords(planet) {
 	let [acc_x, acc_y] = getAccelerate(planet);
@@ -146,6 +164,7 @@ function getNewCoords(planet) {
 function clearPlanets() {
 	// Удаляем все планеты
 	planets = [];
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 }
 
 // Вкл-выкл паузы
@@ -169,21 +188,25 @@ function drawArrow(fromx, fromy, tox, toy) {
 
 // Движения по экрану
 function moveUp() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].y += 10
 	}
 }
 function moveDown() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].y -= 10
 	}
 }
 function moveLeft() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].x += 10
 	}
 }
 function moveRight() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	for (let i = 0; i < planets.length; i++) {
 		planets[i].x -= 10
 	}
@@ -195,13 +218,21 @@ function togglePin() {
 	pinned = pin
 }
 
+// draw tails
+function toggleTails() {
+	tails = document.getElementsByName("tails")[0].checked
+	drawTails = tails
+}
+
 // Zoom
 function zoomMinus() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	context.scale(0.9, 0.9)
 	context.translate(WIDTH / 0.9 * 0.05, HEIGHT / 0.9 * 0.05)
 }
 
 function zoomPlus() {
+	context.clearRect(-space.width * 10, -space.height * 10, space.width * 20, space.height * 20)
 	context.scale(1.1, 1.1)
 	context.translate(- WIDTH / 1.1 * 0.05, -HEIGHT / 1.1 * 0.05)
 }
@@ -229,32 +260,12 @@ addEventListener("click", function (event) {
 	if (event.clientX < WIDTH * 0.28 && event.clientY > HEIGHT * 0.72) {
 		return false
 	} else {
-		sliderX.value = event.pageX - CENTER[0]
-		outputX.innerHTML = sliderX.value; 
-		sliderY.value = CENTER[1] - event.pageY
-		outputY.innerHTML = sliderY.value;
 		futurePlanet.x = event.pageX
 		futurePlanet.y = event.pageY
 	}
 })
 
 // Управление ползунками
-var sliderX = document.getElementsByName("x")[0]
-var outputX = document.getElementById("x");
-outputX.innerHTML = sliderX.value; 
-sliderX.oninput = function() {
-	outputX.innerHTML = this.value;
-	futurePlanet.x = Number(this.value) + CENTER[0]
-}
-
-var sliderY = document.getElementsByName("y")[0]
-var outputY = document.getElementById("y");
-outputY.innerHTML = sliderY.value; 
-sliderY.oninput = function() {
-	outputY.innerHTML = this.value;
-	futurePlanet.y = CENTER[1] - Number(this.value) 
-}
-
 var sliderV = document.getElementsByName("v")[0]
 var outputV = document.getElementById("v");
 outputV.innerHTML = sliderV.value; 
